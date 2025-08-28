@@ -50,18 +50,18 @@ function cuda_comparison_strategy(_a::String, _b::String, a_requested::Bool, b_r
 end
 
 function augment_platform!(platform::Platform)
-    if !@isdefined(CUDA_Runtime_jll)
-        # don't set to nothing or Pkg will download any artifact
-        platform["cuda"] = "none"
-    end
+    # if !@isdefined(CUDA_Runtime_jll)
+    #     # don't set to nothing or Pkg will download any artifact
+    #     platform["cuda"] = "none"
+    # end
 
-    if !haskey(platform, "cuda")
-        CUDA_Runtime_jll.augment_platform!(platform)
-    end
-    BinaryPlatforms.set_compare_strategy!(platform, "cuda", cuda_comparison_strategy)
+    # if !haskey(platform, "cuda")
+    #     CUDA_Runtime_jll.augment_platform!(platform)
+    # end
+    # BinaryPlatforms.set_compare_strategy!(platform, "cuda", cuda_comparison_strategy)
 
-    # store the fact that we're using a local CUDA toolkit, for debugging purposes
-    platform["cuda_local"] = string(local_toolkit)
+    # # store the fact that we're using a local CUDA toolkit, for debugging purposes
+    # platform["cuda_local"] = string(local_toolkit)
 
     return platform
 end
